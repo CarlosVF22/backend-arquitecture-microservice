@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+
+  app:
+    build: .
+    environment:
+      - MYSQL_HOST=db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src
+      - /usr/src/node_modules
+    command: npx nodemon ./api/index.js
+
+  db:
+    image: mysql:5.7
+    ports:
+    - '6603:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=mysqldb
+      - MYSQL_USER=admin_user
+      - MYSQL_PASSWORD=administrador
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    environment:
+      - PMA_ARBITRARY=1
+
+

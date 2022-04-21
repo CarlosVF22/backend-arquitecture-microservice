@@ -1,0 +1,24 @@
+{
+  "name": "backend_arquitecture_microservices",
+  "version": "1.0.0",
+  "description": "Esta arquitectura es creada siguiendo el curso de node.js: autenticación, microservicios y redis de Platzi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon api/index.js"
+  },
+  "keywords": [
+    "nodeJs",
+    "javascript",
+    "microservice"
+  ],
+  "author": "cevasquezf22@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
