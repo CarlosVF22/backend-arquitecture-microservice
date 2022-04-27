@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const config = require('../config.js');
-const routerApi = require('./routes/index');
+const router = require('./network');
 
 
 const app = express();
@@ -10,9 +10,9 @@ const app = express();
 app.use(bodyParser.json())
 
 //Router
-routerApi(app)
+app.use('/', router)
 
 // Server listen
-app.listen(config.api.port, () => {
-    console.log('Api escuchando en el puerto', config.api.port);
+app.listen(config.mysqlService.port, () => {
+    console.log('Servicio de mysql escuchando en el puerto', config.mysqlService.port);
 })

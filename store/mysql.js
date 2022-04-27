@@ -36,3 +36,57 @@ function handleCon() {
 }
 
 handleCon();
+
+function list(table) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table}`, (err, data) =>{
+            if (err) return reject (err);
+
+            resolve(data)
+        })
+    })
+}
+
+function get(table, id) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (err, data) =>{
+            if (err) return reject (err);
+
+            resolve(data)
+        })
+    })
+}
+
+function insert(table, data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`INSERT INTO ${table} SET ?`,[data, data.id] ,(err, result) =>{
+            if (err) return reject (err);
+
+            resolve(result)
+        })
+    })
+}
+
+function upsert(table, data) {
+    if (data && data.id) {
+        return update(table, data);
+    } else {
+        return insert(table, data)
+    }
+}
+
+function update(table, data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data,data.id],
+        (err, result) => {
+            if(err) return reject(err);
+            resolve(result);
+        })
+    })
+}
+
+module.exports = {
+    list,
+    get,
+    upsert
+};

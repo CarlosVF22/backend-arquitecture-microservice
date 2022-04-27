@@ -1,3 +1,4 @@
+
 const TABLE = 'user'
 
 module.exports = function(injectedStore) {
@@ -12,8 +13,20 @@ module.exports = function(injectedStore) {
     function get(id) {
         return store.get(TABLE, id)
     }
+
+    async function upsert(body) {
+        const user = {
+            name: body.name,
+            username: body.username,
+        }
+        if (body.id) {
+            user.id = body.id;
+        }
+        return store.upsert(TABLE, user);
+    }
     return {
         list,
-        get
+        get,
+        upsert
     }
 }
